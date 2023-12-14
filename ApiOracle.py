@@ -65,7 +65,7 @@ def obter_dados():
 @app.route('/login', methods=['POST'])
 def login():
     # Simples exemplo de autenticação (substitua por lógica real)
-    if request.json.get('username') == 'COBATA' and request.json.get('password') == 'C0B4TA':
+    if request.json.get('username') == '****' and request.json.get('password') == '****':
         access_token = create_access_token(identity=request.json.get('username'))
         return jsonify(access_token=access_token), 200
     else:
