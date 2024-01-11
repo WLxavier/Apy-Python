@@ -10,7 +10,7 @@ app.config['JWT_SECRET_KEY'] = '160919'  # chave de criptografia
 jwt = JWTManager(app)
 
 
-# Adicione o diretório do Oracle Client ao PATH
+# diretorio path
 os.environ['PATH'] = r'C:\instantclient_21_9;' + os.environ['PATH']
 
 # Detalhes de conexão
@@ -43,16 +43,15 @@ def executar_consulta(query):
         raise e
 
     finally:
-        # Libera os recursos
+        # Libera o banco de dados
         cursor.close()
         pool.release(connection)
 
-# Rota para obter dados de um SELECT (protegida por autenticação JWT)
+# Rota para obter dados
 @app.route('/consulta', methods=['GET'])
 @jwt_required()
 def obter_dados():
     try:
-        # Substitua 'sua_query' pela sua consulta SELECT
         query = 'SELECT CODPROD,CODAUXILIAR,VALORULTENT FROM API_ECOMMERCE'
         resultado = executar_consulta(query)
 
@@ -64,7 +63,7 @@ def obter_dados():
 # Rota para autenticação e obtenção de token
 @app.route('/login', methods=['POST'])
 def login():
-    # Simples exemplo de autenticação (substitua por lógica real)
+    # autenticação
     if request.json.get('username') == '****' and request.json.get('password') == '****':
         access_token = create_access_token(identity=request.json.get('username'))
         return jsonify(access_token=access_token), 200
@@ -72,7 +71,7 @@ def login():
         return jsonify({"msg": "Credenciais inválidas"}), 401
 
 if __name__ == '__main__':
-    # Defina o IP desejado e a porta (no seu caso, 1811)
+    # ip/porta
     ip = '0.0.0.0'  # Isso fará com que o Flask escute em todos os IPs disponíveis
     porta = 5000
 
